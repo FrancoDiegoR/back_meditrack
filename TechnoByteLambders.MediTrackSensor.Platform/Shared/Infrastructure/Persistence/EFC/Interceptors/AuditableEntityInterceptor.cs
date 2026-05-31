@@ -1,4 +1,6 @@
-using CatchUpPlatform.API.Shared.Domain.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using TechnoByteLambders.MediTrackSensor.Platform.Shared.Domain.Model;
 
 namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Interceptors;
 
