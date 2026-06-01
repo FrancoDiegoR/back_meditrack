@@ -1,4 +1,4 @@
-namespace CatchUpPlatform.API.Shared.Domain.Repositories;
+namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Domain.Repositories;
 
 /// <summary>
 ///     Unit of work interface

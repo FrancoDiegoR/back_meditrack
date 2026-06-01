@@ -1,4 +1,4 @@
-namespace CatchUpPlatform.API.Shared.Domain.Model;
+namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Domain.Model;
 
 /// <summary>
 ///     Marks an entity as carrying audit timestamps managed by the persistence layer.
