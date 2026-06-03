@@ -21,7 +21,20 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
     {
         base.OnModelCreating(builder);
 
-        // Bounded context entity mappings go here
+        // IAM Context
+        // builder.ApplyIamConfiguration();
+
+        // Establishments Context
+        // builder.ApplyEstablishmentsConfiguration();
+
+        // Monitoring Context
+        // builder.ApplyMonitoringConfiguration();
+
+        // Logistics Context
+        // builder.ApplyLogisticsConfiguration();
+
+        // Subscriptions Context
+        // builder.ApplySubscriptionsConfiguration();
 
         builder.UseSnakeCaseNamingConvention();
     }
