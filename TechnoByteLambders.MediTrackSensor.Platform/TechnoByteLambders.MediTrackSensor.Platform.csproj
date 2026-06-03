@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Folder Include="Establishments\Domain\Model\" />
         <Folder Include="Shared\Domain\" />
     </ItemGroup>
 
