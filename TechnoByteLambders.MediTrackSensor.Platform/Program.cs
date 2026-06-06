@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Domain.Repositories;
+using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Infrastructure.Persistence.EFC.Repositories;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Domain.Repositories;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Repositories;
@@ -34,6 +36,10 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
 
 // Shared Bounded Context Injection Configuration
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Establishments Bounded Context Injection Configuration
+builder.Services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
+builder.Services.AddScoped<IOperatorRepository, OperatorRepository>();
 
 var app = builder.Build();
 

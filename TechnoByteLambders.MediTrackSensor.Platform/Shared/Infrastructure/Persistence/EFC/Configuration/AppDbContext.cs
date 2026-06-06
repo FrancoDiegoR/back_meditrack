@@ -1,3 +1,4 @@
+using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Infrastructure.Persistence.EFC.Configuration;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Interceptors;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +26,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         // builder.ApplyIamConfiguration();
 
         // Establishments Context
-        // builder.ApplyEstablishmentsConfiguration();
+        builder.ApplyEstablishmentsConfiguration();
 
         // Monitoring Context
         // builder.ApplyMonitoringConfiguration();
