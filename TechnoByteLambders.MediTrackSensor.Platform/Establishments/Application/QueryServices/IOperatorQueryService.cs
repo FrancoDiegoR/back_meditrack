@@ -6,6 +6,4 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Establishments.Application
 public interface IOperatorQueryService
 {
     Task<IEnumerable<Operator>> Handle(GetAllOperatorsQuery query, CancellationToken cancellationToken = default);
-    Task<Operator?> Handle(GetOperatorByIdQuery query, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Operator>> Handle(GetOperatorsByEstablishmentIdQuery query, CancellationToken cancellationToken = default);
 }

@@ -15,7 +15,10 @@ public static class IamContextConfiguration
             entity.Property(u => u.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
             entity.Property(u => u.Phone).HasColumnName("phone").HasMaxLength(15);
             entity.Property(u => u.JobTitle).HasColumnName("job_title").HasMaxLength(100);
-            entity.Property(u => u.EntryDate).HasColumnName("entry_date").IsRequired();
+            entity.Property(u => u.EntryDate)
+                .HasColumnName("entry_date")
+                .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v))
+                .IsRequired();
             entity.Property(u => u.Role).HasColumnName("role").IsRequired().HasConversion<string>();
             entity.Property(u => u.PasswordHash).HasColumnName("password_hash").IsRequired().HasMaxLength(255);
             entity.Property(u => u.Photo).HasColumnName("photo").HasMaxLength(255);

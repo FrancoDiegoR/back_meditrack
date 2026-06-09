@@ -6,6 +6,4 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Monitoring.Application.Que
 public interface IDeviceQueryService
 {
     Task<IEnumerable<Device>> Handle(GetAllDevicesQuery query, CancellationToken cancellationToken = default);
-    Task<Device?> Handle(GetDeviceByIdQuery query, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Device>> Handle(GetDevicesByEstablishmentIdQuery query, CancellationToken cancellationToken = default);
 }

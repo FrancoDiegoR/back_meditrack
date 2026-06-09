@@ -46,6 +46,23 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// CORS — permite llamadas desde el frontend Vue (dev y prod)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendPolicy", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:5173",   // Vite dev server
+                "http://localhost:4173",   // Vite preview
+                "https://meditrack-sensor.vercel.app" // Vercel prod (ajustar si cambia)
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
 // Database
 builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
 {
@@ -118,6 +135,7 @@ using (var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
+app.UseCors("FrontendPolicy");
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

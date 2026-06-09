@@ -13,4 +13,5 @@ public record TransportResource(
     decimal AtmosphericPressure,
     decimal SuspendedParticles,
     int EstablishmentId,
-    DateTimeOffset? CreatedAt);
+    DateTimeOffset? CreatedAt,
+    string EnabledSensors);

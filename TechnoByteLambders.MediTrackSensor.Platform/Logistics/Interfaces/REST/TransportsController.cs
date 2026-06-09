@@ -22,21 +22,6 @@ public class TransportsController(
         return Ok(items.Select(TransportResourceFromEntityAssembler.ToResourceFromEntity));
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
-    {
-        var item = await queryService.Handle(new GetTransportByIdQuery(id), ct);
-        if (item is null) return NotFound();
-        return Ok(TransportResourceFromEntityAssembler.ToResourceFromEntity(item));
-    }
-
-    [HttpGet("by-establishment/{establishmentId:int}")]
-    public async Task<IActionResult> GetByEstablishment(int establishmentId, CancellationToken ct)
-    {
-        var items = await queryService.Handle(new GetTransportsByEstablishmentIdQuery(establishmentId), ct);
-        return Ok(items.Select(TransportResourceFromEntityAssembler.ToResourceFromEntity));
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTransportResource resource, CancellationToken ct)
     {
@@ -44,10 +29,9 @@ public class TransportsController(
             return BadRequest(new { error = "Invalid TypeOfMedication value." });
 
         var result = await commandService.Handle(
-            new CreateTransportCommand(resource.TypeOfTransport, medication, resource.EstablishmentId), ct);
+            new CreateTransportCommand(resource.TypeOfTransport, medication, resource.EstablishmentId, resource.EnabledSensors ?? ""), ct);
         if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
-        return CreatedAtAction(nameof(GetById), new { id = ((dynamic)result).Value.Id },
-            TransportResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
+        return Ok(TransportResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
     }
 
     [HttpPut("{id:int}/sensor-data")]

@@ -8,5 +8,6 @@ public interface IOperatorCommandService
 {
     Task<Result<Operator, string>> Handle(CreateOperatorCommand command, CancellationToken cancellationToken = default);
     Task<Result<Operator, string>> Handle(UpdateOperatorCommand command, CancellationToken cancellationToken = default);
+    Task<Result<Operator, string>> IncrementAlertAsync(int id, CancellationToken cancellationToken = default);
     Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default);
 }

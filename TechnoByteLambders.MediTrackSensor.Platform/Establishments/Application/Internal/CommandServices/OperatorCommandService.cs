@@ -51,6 +51,22 @@ public class OperatorCommandService(
         catch (Exception) { return new Result<Operator, string>.Failure(EstablishmentsErrors.OperatorCreationFailed.Description); }
     }
 
+    public async Task<Result<Operator, string>> IncrementAlertAsync(int id, CancellationToken cancellationToken = default)
+    {
+        var op = await operatorRepository.FindByIdAsync(id, cancellationToken);
+        if (op is null)
+            return new Result<Operator, string>.Failure(EstablishmentsErrors.OperatorNotFound.Description);
+
+        op.IncrementAlertsAnswered();
+        try
+        {
+            operatorRepository.Update(op);
+            await unitOfWork.CompleteAsync(cancellationToken);
+            return new Result<Operator, string>.Success(op);
+        }
+        catch (Exception) { return new Result<Operator, string>.Failure(EstablishmentsErrors.OperatorCreationFailed.Description); }
+    }
+
     public async Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var op = await operatorRepository.FindByIdAsync(id, cancellationToken);

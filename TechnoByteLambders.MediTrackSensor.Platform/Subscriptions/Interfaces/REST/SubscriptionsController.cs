@@ -22,21 +22,6 @@ public class SubscriptionsController(
         return Ok(items.Select(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity));
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
-    {
-        var item = await queryService.Handle(new GetSubscriptionByIdQuery(id), ct);
-        if (item is null) return NotFound();
-        return Ok(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(item));
-    }
-
-    [HttpGet("by-admin/{adminId:int}")]
-    public async Task<IActionResult> GetByAdmin(int adminId, CancellationToken ct)
-    {
-        var items = await queryService.Handle(new GetSubscriptionsByAdminIdQuery(adminId), ct);
-        return Ok(items.Select(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity));
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateSubscriptionResource resource, CancellationToken ct)
     {
@@ -45,18 +30,6 @@ public class SubscriptionsController(
 
         var result = await commandService.Handle(
             new CreateSubscriptionCommand(plan, resource.StartDate, resource.EndDate, resource.AdminId), ct);
-        if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
-        return CreatedAtAction(nameof(GetById), new { id = ((dynamic)result).Value.Id },
-            SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
-    }
-
-    [HttpPut("{id:int}/status")]
-    public async Task<IActionResult> UpdateStatus(int id, [FromBody] UpdateSubscriptionStatusResource resource, CancellationToken ct)
-    {
-        if (!Enum.TryParse<SubscriptionStatus>(resource.Status, true, out var status))
-            return BadRequest(new { error = "Invalid Status value." });
-
-        var result = await commandService.Handle(new UpdateSubscriptionStatusCommand(id, status), ct);
         if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
         return Ok(SubscriptionResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
     }

@@ -11,5 +11,5 @@ public static class DeviceResourceFromEntityAssembler
             d.SensorReading.LightIntensity, d.SensorReading.AirQuality,
             d.SensorReading.Vibration, d.SensorReading.AtmosphericPressure,
             d.SensorReading.SuspendedParticles,
-            d.EstablishmentId.Value, d.CreatedAt);
+            d.EstablishmentId.Value, d.CreatedAt, d.EnabledSensors);
 }

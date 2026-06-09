@@ -33,6 +33,11 @@ public static class LogisticsContextConfiguration
             entity.Property(t => t.EstablishmentId)
                 .HasConversion(v => v.Value, v => new EstablishmentId(v))
                 .HasColumnName("establishment_id");
+
+            entity.Property(t => t.EnabledSensors)
+                .HasColumnName("enabled_sensors")
+                .HasMaxLength(500)
+                .HasDefaultValue("");
         });
     }
 }

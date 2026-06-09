@@ -3,4 +3,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Logistics.Interfaces.REST.
 public record CreateTransportResource(
     string TypeOfTransport,
     string TypeOfMedication,
-    int EstablishmentId);
+    int EstablishmentId,
+    string EnabledSensors = "");

@@ -22,21 +22,6 @@ public class DevicesController(
         return Ok(items.Select(DeviceResourceFromEntityAssembler.ToResourceFromEntity));
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
-    {
-        var item = await queryService.Handle(new GetDeviceByIdQuery(id), ct);
-        if (item is null) return NotFound();
-        return Ok(DeviceResourceFromEntityAssembler.ToResourceFromEntity(item));
-    }
-
-    [HttpGet("by-establishment/{establishmentId:int}")]
-    public async Task<IActionResult> GetByEstablishment(int establishmentId, CancellationToken ct)
-    {
-        var items = await queryService.Handle(new GetDevicesByEstablishmentIdQuery(establishmentId), ct);
-        return Ok(items.Select(DeviceResourceFromEntityAssembler.ToResourceFromEntity));
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateDeviceResource resource, CancellationToken ct)
     {
@@ -44,10 +29,9 @@ public class DevicesController(
             return BadRequest(new { error = "Invalid TypeOfMedication value." });
 
         var result = await commandService.Handle(
-            new CreateDeviceCommand(resource.ExactLocation, medication, resource.EstablishmentId), ct);
+            new CreateDeviceCommand(resource.ExactLocation, medication, resource.EstablishmentId, resource.EnabledSensors ?? ""), ct);
         if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
-        return CreatedAtAction(nameof(GetById), new { id = ((dynamic)result).Value.Id },
-            DeviceResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
+        return Ok(DeviceResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
     }
 
     [HttpPut("{id:int}/sensor-data")]

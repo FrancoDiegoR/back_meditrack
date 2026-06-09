@@ -8,6 +8,5 @@ public interface IUserCommandService
 {
     Task<Result<User, string>> Handle(SignUpCommand command, CancellationToken cancellationToken = default);
     Task<Result<(User User, string Token), string>> Handle(SignInCommand command, CancellationToken cancellationToken = default);
-    Task<Result<User, string>> Handle(UpdateUserCommand command, CancellationToken cancellationToken = default);
     Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default);
 }

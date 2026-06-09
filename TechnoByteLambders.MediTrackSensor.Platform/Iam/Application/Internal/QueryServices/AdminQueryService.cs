@@ -10,9 +10,6 @@ public class AdminQueryService(IAdminRepository adminRepository) : IAdminQuerySe
     public async Task<IEnumerable<Admin>> Handle(GetAllAdminsQuery query, CancellationToken cancellationToken = default)
         => await adminRepository.ListAsync(cancellationToken);
 
-    public async Task<Admin?> Handle(GetAdminByIdQuery query, CancellationToken cancellationToken = default)
-        => await adminRepository.FindByIdAsync(query.Id, cancellationToken);
-
     public async Task<Admin?> Handle(GetAdminByUserIdQuery query, CancellationToken cancellationToken = default)
         => await adminRepository.FindByUserIdAsync(query.UserId, cancellationToken);
 }

@@ -10,9 +10,5 @@ public class OperatorQueryService(IOperatorRepository operatorRepository) : IOpe
     public async Task<IEnumerable<Operator>> Handle(GetAllOperatorsQuery query, CancellationToken cancellationToken = default)
         => await operatorRepository.ListAsync(cancellationToken);
 
-    public async Task<Operator?> Handle(GetOperatorByIdQuery query, CancellationToken cancellationToken = default)
-        => await operatorRepository.FindByIdAsync(query.Id, cancellationToken);
 
-    public async Task<IEnumerable<Operator>> Handle(GetOperatorsByEstablishmentIdQuery query, CancellationToken cancellationToken = default)
-        => await operatorRepository.FindByEstablishmentIdAsync(query.EstablishmentId, cancellationToken);
 }

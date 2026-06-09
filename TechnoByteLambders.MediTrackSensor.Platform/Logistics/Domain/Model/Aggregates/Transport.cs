@@ -8,7 +8,8 @@ public partial class Transport(
     TypeOfMedication typeOfMedication,
     SensorReading sensorReading,
     DoorStatus doorStatus,
-    EstablishmentId establishmentId)
+    EstablishmentId establishmentId,
+    string enabledSensors = "")
 {
     public Transport() : this(
         string.Empty,
@@ -24,7 +25,8 @@ public partial class Transport(
         command.TypeOfMedication,
         new SensorReading(0, 0, 0, 0, 0, 0, 0),
         DoorStatus.Closed,
-        new EstablishmentId(command.EstablishmentId))
+        new EstablishmentId(command.EstablishmentId),
+        command.EnabledSensors)
     {
     }
 
@@ -34,6 +36,7 @@ public partial class Transport(
     public SensorReading SensorReading { get; private set; } = sensorReading;
     public DoorStatus DoorStatus { get; private set; } = doorStatus;
     public EstablishmentId EstablishmentId { get; private set; } = establishmentId;
+    public string EnabledSensors { get; private set; } = enabledSensors;
 
     public Transport UpdateSensorReading(SensorReading sensorReading)
     {

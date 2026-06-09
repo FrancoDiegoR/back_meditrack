@@ -5,4 +5,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Monitoring.Domain.Model.Co
 public record CreateDeviceCommand(
     string ExactLocation,
     TypeOfMedication TypeOfMedication,
-    int EstablishmentId);
+    int EstablishmentId,
+    string EnabledSensors = "");

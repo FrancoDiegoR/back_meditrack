@@ -21,14 +21,6 @@ public class UsersController(IUserCommandService userCommandService, IUserQueryS
         return Ok(users.Select(UserResourceFromEntityAssembler.ToResourceFromEntity));
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
-    {
-        var user = await userQueryService.Handle(new GetUserByIdQuery(id), ct);
-        if (user is null) return NotFound();
-        return Ok(UserResourceFromEntityAssembler.ToResourceFromEntity(user));
-    }
-
     [HttpPost]
     public async Task<IActionResult> SignUp([FromBody] SignUpResource resource, CancellationToken ct)
     {
@@ -37,7 +29,7 @@ public class UsersController(IUserCommandService userCommandService, IUserQueryS
         if (result is Result<User, string>.Failure f)
             return BadRequest(new { error = f.Error });
         var success = (Result<User, string>.Success)result;
-        return CreatedAtAction(nameof(GetById), new { id = success.Value.Id },
+        return CreatedAtAction(nameof(GetAll), new { id = success.Value.Id },
             UserResourceFromEntityAssembler.ToResourceFromEntity(success.Value));
     }
 
@@ -50,17 +42,6 @@ public class UsersController(IUserCommandService userCommandService, IUserQueryS
         var success = (Result<(User User, string Token), string>.Success)result;
         var (user, token) = success.Value;
         return Ok(new AuthResource(UserResourceFromEntityAssembler.ToResourceFromEntity(user), token));
-    }
-
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] UpdateUserResource resource, CancellationToken ct)
-    {
-        var result = await userCommandService.Handle(
-            new UpdateUserCommand(id, resource.Name, resource.Phone, resource.JobTitle, resource.Photo), ct);
-        if (result is Result<User, string>.Failure f)
-            return BadRequest(new { error = f.Error });
-        var success = (Result<User, string>.Success)result;
-        return Ok(UserResourceFromEntityAssembler.ToResourceFromEntity(success.Value));
     }
 
     [HttpDelete("{id:int}")]

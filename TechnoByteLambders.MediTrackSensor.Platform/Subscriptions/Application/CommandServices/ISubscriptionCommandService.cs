@@ -7,6 +7,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Application.
 public interface ISubscriptionCommandService
 {
     Task<Result<Subscription, string>> Handle(CreateSubscriptionCommand command, CancellationToken cancellationToken = default);
-    Task<Result<Subscription, string>> Handle(UpdateSubscriptionStatusCommand command, CancellationToken cancellationToken = default);
     Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default);
 }

@@ -3,4 +3,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Monitoring.Interfaces.REST
 public record CreateDeviceResource(
     string ExactLocation,
     string TypeOfMedication,
-    int EstablishmentId);
+    int EstablishmentId,
+    string EnabledSensors = "");

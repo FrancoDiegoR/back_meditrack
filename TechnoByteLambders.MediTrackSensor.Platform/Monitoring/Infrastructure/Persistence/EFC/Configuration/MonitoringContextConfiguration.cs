@@ -33,6 +33,11 @@ public static class MonitoringContextConfiguration
             entity.Property(d => d.EstablishmentId)
                 .HasConversion(v => v.Value, v => new EstablishmentId(v))
                 .HasColumnName("establishment_id");
+
+            entity.Property(d => d.EnabledSensors)
+                .HasColumnName("enabled_sensors")
+                .HasMaxLength(500)
+                .HasDefaultValue("");
         });
     }
 }

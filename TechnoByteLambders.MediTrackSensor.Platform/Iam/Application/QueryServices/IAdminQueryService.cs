@@ -6,6 +6,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Iam.Application.QueryServi
 public interface IAdminQueryService
 {
     Task<IEnumerable<Admin>> Handle(GetAllAdminsQuery query, CancellationToken cancellationToken = default);
-    Task<Admin?> Handle(GetAdminByIdQuery query, CancellationToken cancellationToken = default);
     Task<Admin?> Handle(GetAdminByUserIdQuery query, CancellationToken cancellationToken = default);
 }

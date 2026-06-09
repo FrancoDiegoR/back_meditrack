@@ -46,24 +46,6 @@ public class UserCommandService(
         return new Result<(User, string), string>.Success((user, token));
     }
 
-    public async Task<Result<User, string>> Handle(UpdateUserCommand command, CancellationToken cancellationToken = default)
-    {
-        var user = await userRepository.FindByIdAsync(command.Id, cancellationToken);
-        if (user is null)
-            return new Result<User, string>.Failure(IamErrors.UserNotFound.Description);
-
-        user.UpdateProfile(command.Name, command.Phone, command.JobTitle, command.Photo);
-        try
-        {
-            userRepository.Update(user);
-            await unitOfWork.CompleteAsync(cancellationToken);
-            return new Result<User, string>.Success(user);
-        }
-        catch (OperationCanceledException) { return new Result<User, string>.Failure(IamErrors.UserUpdateFailed.Description); }
-        catch (DbUpdateException) { return new Result<User, string>.Failure(IamErrors.UserUpdateFailed.Description); }
-        catch (Exception) { return new Result<User, string>.Failure(IamErrors.UserUpdateFailed.Description); }
-    }
-
     public async Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var user = await userRepository.FindByIdAsync(id, cancellationToken);

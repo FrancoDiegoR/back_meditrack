@@ -5,4 +5,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Logistics.Domain.Model.Com
 public record CreateTransportCommand(
     string TypeOfTransport,
     TypeOfMedication TypeOfMedication,
-    int EstablishmentId);
+    int EstablishmentId,
+    string EnabledSensors = "");

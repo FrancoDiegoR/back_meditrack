@@ -27,24 +27,6 @@ public class SubscriptionCommandService(
         catch (Exception) { return new Result<Subscription, string>.Failure(SubscriptionsErrors.SubscriptionCreationFailed.Description); }
     }
 
-    public async Task<Result<Subscription, string>> Handle(UpdateSubscriptionStatusCommand command, CancellationToken cancellationToken = default)
-    {
-        var subscription = await subscriptionRepository.FindByIdAsync(command.Id, cancellationToken);
-        if (subscription is null)
-            return new Result<Subscription, string>.Failure(SubscriptionsErrors.SubscriptionNotFound.Description);
-
-        subscription.UpdateStatus(command.Status);
-        try
-        {
-            subscriptionRepository.Update(subscription);
-            await unitOfWork.CompleteAsync(cancellationToken);
-            return new Result<Subscription, string>.Success(subscription);
-        }
-        catch (OperationCanceledException) { return new Result<Subscription, string>.Failure(SubscriptionsErrors.SubscriptionUpdateFailed.Description); }
-        catch (DbUpdateException) { return new Result<Subscription, string>.Failure(SubscriptionsErrors.SubscriptionUpdateFailed.Description); }
-        catch (Exception) { return new Result<Subscription, string>.Failure(SubscriptionsErrors.SubscriptionUpdateFailed.Description); }
-    }
-
     public async Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var subscription = await subscriptionRepository.FindByIdAsync(id, cancellationToken);

@@ -181,8 +181,8 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Pers
                         .HasColumnType("varchar(100)")
                         .HasColumnName("email");
 
-                    b.Property<DateOnly>("EntryDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("entry_date");
 
                     b.Property<string>("JobTitle")
@@ -246,6 +246,14 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Pers
                         .HasColumnType("longtext")
                         .HasColumnName("door_status");
 
+                    b.Property<string>("EnabledSensors")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("enabled_sensors");
+
                     b.Property<int>("EstablishmentId")
                         .HasColumnType("int")
                         .HasColumnName("establishment_id");
@@ -287,6 +295,14 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Pers
                         .HasColumnType("longtext")
                         .HasColumnName("door_status");
 
+                    b.Property<string>("EnabledSensors")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasDefaultValue("")
+                        .HasColumnName("enabled_sensors");
+
                     b.Property<int>("EstablishmentId")
                         .HasColumnType("int")
                         .HasColumnName("establishment_id");
@@ -327,8 +343,8 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Pers
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<DateOnly>("EndDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("end_date");
 
                     b.Property<string>("Plan")
@@ -336,8 +352,8 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Pers
                         .HasColumnType("longtext")
                         .HasColumnName("plan");
 
-                    b.Property<DateOnly>("StartDate")
-                        .HasColumnType("date")
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("start_date");
 
                     b.Property<string>("Status")

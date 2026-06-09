@@ -7,6 +7,5 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Establishments.Application
 public interface IEstablishmentCommandService
 {
     Task<Result<Establishment, string>> Handle(CreateEstablishmentCommand command, CancellationToken cancellationToken = default);
-    Task<Result<Establishment, string>> Handle(UpdateEstablishmentCommand command, CancellationToken cancellationToken = default);
     Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default);
 }

@@ -7,5 +7,4 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Iam.Application.CommandSer
 public interface IAdminCommandService
 {
     Task<Result<Admin, string>> Handle(CreateAdminCommand command, CancellationToken cancellationToken = default);
-    Task<Result<Admin, string>> Handle(UpdateAdminCommand command, CancellationToken cancellationToken = default);
 }

@@ -10,9 +10,5 @@ public class DeviceQueryService(IDeviceRepository deviceRepository) : IDeviceQue
     public async Task<IEnumerable<Device>> Handle(GetAllDevicesQuery query, CancellationToken cancellationToken = default)
         => await deviceRepository.ListAsync(cancellationToken);
 
-    public async Task<Device?> Handle(GetDeviceByIdQuery query, CancellationToken cancellationToken = default)
-        => await deviceRepository.FindByIdAsync(query.Id, cancellationToken);
 
-    public async Task<IEnumerable<Device>> Handle(GetDevicesByEstablishmentIdQuery query, CancellationToken cancellationToken = default)
-        => await deviceRepository.FindByEstablishmentIdAsync(query.EstablishmentId, cancellationToken);
 }

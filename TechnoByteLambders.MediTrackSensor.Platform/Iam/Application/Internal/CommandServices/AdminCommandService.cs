@@ -50,32 +50,4 @@ public class AdminCommandService(
         }
     }
 
-    public async Task<Result<Admin, string>> Handle(UpdateAdminCommand command, CancellationToken cancellationToken = default)
-    {
-        var admin = await adminRepository.FindByIdAsync(command.Id, cancellationToken);
-        if (admin is null)
-            return new Result<Admin, string>.Failure(IamErrors.AdminNotFound.Description);
-
-        admin.UpdateEntityInfo(command.EntityName, command.EntityCode)
-             .UpdateSchedule(command.Schedule);
-
-        try
-        {
-            adminRepository.Update(admin);
-            await unitOfWork.CompleteAsync(cancellationToken);
-            return new Result<Admin, string>.Success(admin);
-        }
-        catch (OperationCanceledException)
-        {
-            return new Result<Admin, string>.Failure(IamErrors.AdminUpdateFailed.Description);
-        }
-        catch (DbUpdateException)
-        {
-            return new Result<Admin, string>.Failure(IamErrors.AdminUpdateFailed.Description);
-        }
-        catch (Exception)
-        {
-            return new Result<Admin, string>.Failure(IamErrors.AdminUpdateFailed.Description);
-        }
-    }
 }

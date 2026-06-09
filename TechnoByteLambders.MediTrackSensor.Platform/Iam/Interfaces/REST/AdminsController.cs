@@ -19,29 +19,11 @@ public class AdminsController(IAdminCommandService adminCommandService, IAdminQu
         return Ok(admins.Select(AdminResourceFromEntityAssembler.ToResourceFromEntity));
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
-    {
-        var admin = await adminQueryService.Handle(new GetAdminByIdQuery(id), ct);
-        if (admin is null) return NotFound();
-        return Ok(AdminResourceFromEntityAssembler.ToResourceFromEntity(admin));
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateAdminResource resource, CancellationToken ct)
     {
         var result = await adminCommandService.Handle(
-            new CreateAdminCommand(resource.EntityName, resource.EntityCode, resource.Schedule, resource.UsersId), ct);
-        if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
-        return CreatedAtAction(nameof(GetById), new { id = ((dynamic)result).Value.Id },
-            AdminResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
-    }
-
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] UpdateAdminResource resource, CancellationToken ct)
-    {
-        var result = await adminCommandService.Handle(
-            new UpdateAdminCommand(id, resource.EntityName, resource.EntityCode, resource.Schedule), ct);
+            new CreateAdminCommand(resource.EntityName, resource.EntityCode, resource.Schedule, resource.UserId), ct);
         if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
         return Ok(AdminResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
     }

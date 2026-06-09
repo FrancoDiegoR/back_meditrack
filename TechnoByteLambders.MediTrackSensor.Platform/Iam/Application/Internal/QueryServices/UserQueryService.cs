@@ -10,9 +10,6 @@ public class UserQueryService(IUserRepository userRepository) : IUserQueryServic
     public async Task<IEnumerable<User>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken = default)
         => await userRepository.ListAsync(cancellationToken);
 
-    public async Task<User?> Handle(GetUserByIdQuery query, CancellationToken cancellationToken = default)
-        => await userRepository.FindByIdAsync(query.Id, cancellationToken);
-
     public async Task<User?> Handle(GetUserByEmailQuery query, CancellationToken cancellationToken = default)
         => await userRepository.FindByEmailAsync(query.Email.ToLowerInvariant().Trim(), cancellationToken);
 }

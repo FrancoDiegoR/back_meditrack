@@ -6,6 +6,4 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Establishments.Application
 public interface IEstablishmentQueryService
 {
     Task<IEnumerable<Establishment>> Handle(GetAllEstablishmentsQuery query, CancellationToken cancellationToken = default);
-    Task<Establishment?> Handle(GetEstablishmentByIdQuery query, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Establishment>> Handle(GetEstablishmentsByAdminIdQuery query, CancellationToken cancellationToken = default);
 }

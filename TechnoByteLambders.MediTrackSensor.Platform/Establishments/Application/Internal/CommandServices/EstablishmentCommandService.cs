@@ -30,27 +30,6 @@ public class EstablishmentCommandService(
         catch (Exception) { return new Result<Establishment, string>.Failure(EstablishmentsErrors.EstablishmentCreationFailed.Description); }
     }
 
-    public async Task<Result<Establishment, string>> Handle(UpdateEstablishmentCommand command, CancellationToken cancellationToken = default)
-    {
-        var establishment = await establishmentRepository.FindByIdAsync(command.Id, cancellationToken);
-        if (establishment is null)
-            return new Result<Establishment, string>.Failure(EstablishmentsErrors.EstablishmentNotFound.Description);
-
-        establishment.UpdateName(command.EstablishmentName)
-                     .UpdateAddress(command.Address)
-                     .UpdateLocation(command.Location)
-                     .UpdateContact(command.Phone, command.Email, command.Website);
-        try
-        {
-            establishmentRepository.Update(establishment);
-            await unitOfWork.CompleteAsync(cancellationToken);
-            return new Result<Establishment, string>.Success(establishment);
-        }
-        catch (OperationCanceledException) { return new Result<Establishment, string>.Failure(EstablishmentsErrors.EstablishmentCreationFailed.Description); }
-        catch (DbUpdateException) { return new Result<Establishment, string>.Failure(EstablishmentsErrors.EstablishmentCreationFailed.Description); }
-        catch (Exception) { return new Result<Establishment, string>.Failure(EstablishmentsErrors.EstablishmentCreationFailed.Description); }
-    }
-
     public async Task<Result<bool, string>> DeleteAsync(int id, CancellationToken cancellationToken = default)
     {
         var establishment = await establishmentRepository.FindByIdAsync(id, cancellationToken);

@@ -11,5 +11,5 @@ public static class TransportResourceFromEntityAssembler
             t.SensorReading.LightIntensity, t.SensorReading.AirQuality,
             t.SensorReading.Vibration, t.SensorReading.AtmosphericPressure,
             t.SensorReading.SuspendedParticles,
-            t.EstablishmentId.Value, t.CreatedAt);
+            t.EstablishmentId.Value, t.CreatedAt, t.EnabledSensors);
 }

@@ -22,21 +22,6 @@ public class EstablishmentsController(
         return Ok(items.Select(EstablishmentResourceFromEntityAssembler.ToResourceFromEntity));
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id, CancellationToken ct)
-    {
-        var item = await queryService.Handle(new GetEstablishmentByIdQuery(id), ct);
-        if (item is null) return NotFound();
-        return Ok(EstablishmentResourceFromEntityAssembler.ToResourceFromEntity(item));
-    }
-
-    [HttpGet("by-admin/{adminId:int}")]
-    public async Task<IActionResult> GetByAdminId(int adminId, CancellationToken ct)
-    {
-        var items = await queryService.Handle(new GetEstablishmentsByAdminIdQuery(adminId), ct);
-        return Ok(items.Select(EstablishmentResourceFromEntityAssembler.ToResourceFromEntity));
-    }
-
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateEstablishmentResource resource, CancellationToken ct)
     {
@@ -45,21 +30,6 @@ public class EstablishmentsController(
             new Address(resource.Address, resource.District, resource.CityRegion, resource.Country),
             new Location(resource.Latitude, resource.Longitude),
             resource.Phone, resource.Email, resource.Website, resource.AdminId);
-
-        var result = await commandService.Handle(command, ct);
-        if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });
-        return CreatedAtAction(nameof(GetById), new { id = ((dynamic)result).Value.Id },
-            EstablishmentResourceFromEntityAssembler.ToResourceFromEntity(((dynamic)result).Value));
-    }
-
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromBody] CreateEstablishmentResource resource, CancellationToken ct)
-    {
-        var command = new UpdateEstablishmentCommand(
-            id, resource.EstablishmentName, resource.EstablishmentType,
-            new Address(resource.Address, resource.District, resource.CityRegion, resource.Country),
-            new Location(resource.Latitude, resource.Longitude),
-            resource.Phone, resource.Email, resource.Website);
 
         var result = await commandService.Handle(command, ct);
         if (result.IsFailure) return BadRequest(new { error = ((dynamic)result).Error });

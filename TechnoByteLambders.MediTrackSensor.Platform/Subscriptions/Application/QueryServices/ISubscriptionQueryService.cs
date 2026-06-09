@@ -6,6 +6,4 @@ namespace TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Application.
 public interface ISubscriptionQueryService
 {
     Task<IEnumerable<Subscription>> Handle(GetAllSubscriptionsQuery query, CancellationToken cancellationToken = default);
-    Task<Subscription?> Handle(GetSubscriptionByIdQuery query, CancellationToken cancellationToken = default);
-    Task<IEnumerable<Subscription>> Handle(GetSubscriptionsByAdminIdQuery query, CancellationToken cancellationToken = default);
 }

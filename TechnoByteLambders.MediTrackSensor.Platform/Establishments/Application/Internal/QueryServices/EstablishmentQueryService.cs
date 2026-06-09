@@ -10,9 +10,4 @@ public class EstablishmentQueryService(IEstablishmentRepository establishmentRep
     public async Task<IEnumerable<Establishment>> Handle(GetAllEstablishmentsQuery query, CancellationToken cancellationToken = default)
         => await establishmentRepository.ListAsync(cancellationToken);
 
-    public async Task<Establishment?> Handle(GetEstablishmentByIdQuery query, CancellationToken cancellationToken = default)
-        => await establishmentRepository.FindByIdAsync(query.Id, cancellationToken);
-
-    public async Task<IEnumerable<Establishment>> Handle(GetEstablishmentsByAdminIdQuery query, CancellationToken cancellationToken = default)
-        => await establishmentRepository.FindByAdminIdAsync(query.AdminId, cancellationToken);
 }

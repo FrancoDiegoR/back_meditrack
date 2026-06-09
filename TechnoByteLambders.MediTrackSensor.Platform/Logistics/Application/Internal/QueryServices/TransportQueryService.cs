@@ -10,9 +10,5 @@ public class TransportQueryService(ITransportRepository transportRepository) : I
     public async Task<IEnumerable<Transport>> Handle(GetAllTransportsQuery query, CancellationToken cancellationToken = default)
         => await transportRepository.ListAsync(cancellationToken);
 
-    public async Task<Transport?> Handle(GetTransportByIdQuery query, CancellationToken cancellationToken = default)
-        => await transportRepository.FindByIdAsync(query.Id, cancellationToken);
 
-    public async Task<IEnumerable<Transport>> Handle(GetTransportsByEstablishmentIdQuery query, CancellationToken cancellationToken = default)
-        => await transportRepository.FindByEstablishmentIdAsync(query.EstablishmentId, cancellationToken);
 }
