@@ -1,11 +1,14 @@
+using TechnoByteLambders.MediTrackSensor.Platform.Iam.Domain.Model.ValueObjects;
+
 namespace TechnoByteLambders.MediTrackSensor.Platform.Iam.Domain.Model.Commands;
 
-/**
- * <summary>
- *     The sign up command
- * </summary>
- * <remarks>
- *     This command object includes the username and password to sign up
- * </remarks>
- */
-public record SignUpCommand(string Username, string Password);
+public record SignUpCommand(
+    string Name,
+    string Dni,
+    string Email,
+    string Phone,
+    string JobTitle,
+    DateOnly EntryDate,
+    UserRole Role,
+    string Password,
+    string Photo);

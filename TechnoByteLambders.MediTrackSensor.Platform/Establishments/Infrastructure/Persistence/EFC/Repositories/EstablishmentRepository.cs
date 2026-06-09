@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Domain.Model.Aggregates;
+using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Domain.Model.ValueObjects;
 using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Domain.Repositories;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Repositories;
@@ -14,7 +15,7 @@ public class EstablishmentRepository(AppDbContext context)
         CancellationToken cancellationToken = default)
     {
         return await Context.Set<Establishment>()
-            .Where(e => e.AdminId.Value == adminId)
+            .Where(e => e.AdminId == new AdminId(adminId))
             .ToListAsync(cancellationToken);
     }
 }

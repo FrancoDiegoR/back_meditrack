@@ -11,43 +11,49 @@ public static class EstablishmentsContextConfiguration
         builder.Entity<Establishment>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.EstablishmentName).IsRequired().HasMaxLength(100);
-            entity.Property(e => e.EstablishmentType).IsRequired().HasConversion<string>();
-            entity.Property(e => e.Phone).HasMaxLength(20);
-            entity.Property(e => e.Email).HasMaxLength(100);
-            entity.Property(e => e.Website).HasMaxLength(200);
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.EstablishmentName).HasColumnName("establishment_name").IsRequired().HasMaxLength(150);
+            entity.Property(e => e.EstablishmentType).HasColumnName("establishment_type").IsRequired().HasConversion<string>();
+            entity.Property(e => e.Phone).HasColumnName("phone").HasMaxLength(15);
+            entity.Property(e => e.Email).HasColumnName("email").HasMaxLength(100);
+            entity.Property(e => e.Website).HasColumnName("website").HasMaxLength(150);
 
+            // Address: multi-property VO → OwnsOne (fix shadow key to map to "id")
             entity.OwnsOne(e => e.Address, address =>
             {
-                address.Property(a => a.Street).HasColumnName("address_street").HasMaxLength(150);
-                address.Property(a => a.District).HasColumnName("address_district").HasMaxLength(100);
-                address.Property(a => a.CityRegion).HasColumnName("address_city_region").HasMaxLength(100);
-                address.Property(a => a.Country).HasColumnName("address_country").HasMaxLength(100);
+                address.Property<int>("EstablishmentId").HasColumnName("id");
+                address.Property(a => a.Street).HasColumnName("address").HasMaxLength(200);
+                address.Property(a => a.District).HasColumnName("district").HasMaxLength(100);
+                address.Property(a => a.CityRegion).HasColumnName("city_region").HasMaxLength(100);
+                address.Property(a => a.Country).HasColumnName("country").HasMaxLength(100);
             });
 
+            // Location: multi-property VO → OwnsOne (fix shadow key)
             entity.OwnsOne(e => e.Location, location =>
             {
-                location.Property(l => l.Latitude).HasColumnName("location_latitude").HasPrecision(9, 6);
-                location.Property(l => l.Longitude).HasColumnName("location_longitude").HasPrecision(9, 6);
+                location.Property<int>("EstablishmentId").HasColumnName("id");
+                location.Property(l => l.Latitude).HasColumnName("latitude").HasPrecision(10, 8);
+                location.Property(l => l.Longitude).HasColumnName("longitude").HasPrecision(11, 8);
             });
 
-            entity.OwnsOne(e => e.AdminId, adminId =>
-            {
-                adminId.Property(a => a.Value).HasColumnName("admin_id");
-            });
+            // AdminId: single-property VO → HasConversion
+            entity.Property(e => e.AdminId)
+                .HasConversion(v => v.Value, v => new AdminId(v))
+                .HasColumnName("admin_id");
         });
 
         builder.Entity<Operator>(entity =>
         {
             entity.HasKey(o => o.Id);
-            entity.Property(o => o.AlertsAnswered).IsRequired();
-            entity.Property(o => o.Schedule).IsRequired().HasMaxLength(100);
-            entity.Property(o => o.EstablishmentId).IsRequired();
+            entity.Property(o => o.Id).HasColumnName("id");
+            entity.Property(o => o.AlertsAnswered).HasColumnName("alerts_answered").IsRequired();
+            entity.Property(o => o.Schedule).HasColumnName("schedule").IsRequired().HasMaxLength(100);
+            entity.Property(o => o.EstablishmentId).HasColumnName("establishment_id").IsRequired();
 
-            entity.OwnsOne(o => o.UserId, userId =>
-            {
-                userId.Property(u => u.Value).HasColumnName("user_id");
-            });
+            // UserId: single-property VO → HasConversion
+            entity.Property(o => o.UserId)
+                .HasConversion(v => v.Value, v => new UserId(v))
+                .HasColumnName("users_id");
 
             entity.HasOne<Establishment>()
                 .WithMany()

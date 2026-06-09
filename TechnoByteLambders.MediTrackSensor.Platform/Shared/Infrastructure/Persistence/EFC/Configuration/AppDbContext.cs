@@ -1,6 +1,10 @@
 using TechnoByteLambders.MediTrackSensor.Platform.Establishments.Infrastructure.Persistence.EFC.Configuration;
+using TechnoByteLambders.MediTrackSensor.Platform.Iam.Infrastructure.Persistence.EFC.Configuration;
+using TechnoByteLambders.MediTrackSensor.Platform.Logistics.Infrastructure.Persistence.EFC.Configuration;
+using TechnoByteLambders.MediTrackSensor.Platform.Monitoring.Infrastructure.Persistence.EFC.Configuration;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Interceptors;
+using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Infrastructure.Persistence.EFC.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -23,19 +27,19 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         base.OnModelCreating(builder);
 
         // IAM Context
-        // builder.ApplyIamConfiguration();
+        builder.ApplyIamConfiguration();
 
         // Establishments Context
         builder.ApplyEstablishmentsConfiguration();
 
         // Monitoring Context
-        // builder.ApplyMonitoringConfiguration();
+        builder.ApplyMonitoringConfiguration();
 
         // Logistics Context
-        // builder.ApplyLogisticsConfiguration();
+        builder.ApplyLogisticsConfiguration();
 
         // Subscriptions Context
-        // builder.ApplySubscriptionsConfiguration();
+        builder.ApplySubscriptionsConfiguration();
 
         builder.UseSnakeCaseNamingConvention();
     }

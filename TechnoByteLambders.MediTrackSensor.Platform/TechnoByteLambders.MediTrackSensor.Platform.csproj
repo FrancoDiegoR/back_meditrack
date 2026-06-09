@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
         <PackageReference Include="Humanizer" Version="3.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.8" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8">
@@ -16,10 +18,55 @@
         </PackageReference>
         <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.7" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.19.1" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Shared\Domain\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Shared\Resources\CommonMessages.resx">
+            <DependentUpon>CommonMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Shared\Resources\CommonMessages.es.resx">
+            <DependentUpon>CommonMessages.cs</DependentUpon>
+        </EmbeddedResource>
+
+        <EmbeddedResource Update="Iam\Resources\IamMessages.resx">
+            <DependentUpon>IamMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Iam\Resources\IamMessages.es.resx">
+            <DependentUpon>IamMessages.cs</DependentUpon>
+        </EmbeddedResource>
+
+        <EmbeddedResource Update="Establishments\Resources\EstablishmentsMessages.resx">
+            <DependentUpon>EstablishmentsMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Establishments\Resources\EstablishmentsMessages.es.resx">
+            <DependentUpon>EstablishmentsMessages.cs</DependentUpon>
+        </EmbeddedResource>
+
+        <EmbeddedResource Update="Monitoring\Resources\MonitoringMessages.resx">
+            <DependentUpon>MonitoringMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Monitoring\Resources\MonitoringMessages.es.resx">
+            <DependentUpon>MonitoringMessages.cs</DependentUpon>
+        </EmbeddedResource>
+
+        <EmbeddedResource Update="Logistics\Resources\LogisticsMessages.resx">
+            <DependentUpon>LogisticsMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Logistics\Resources\LogisticsMessages.es.resx">
+            <DependentUpon>LogisticsMessages.cs</DependentUpon>
+        </EmbeddedResource>
+
+        <EmbeddedResource Update="Subscriptions\Resources\SubscriptionsMessages.resx">
+            <DependentUpon>SubscriptionsMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Subscriptions\Resources\SubscriptionsMessages.es.resx">
+            <DependentUpon>SubscriptionsMessages.cs</DependentUpon>
+        </EmbeddedResource>
     </ItemGroup>
 
 </Project>
