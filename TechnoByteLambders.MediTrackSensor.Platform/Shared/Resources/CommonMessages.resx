@@ -9,4 +9,7 @@
   <data name="NotFound" xml:space="preserve">
     <value>The requested resource was not found.</value>
   </data>
+  <data name="InternalServerError" xml:space="preserve">
+    <value>Internal Server Error</value>
+  </data>
 </root>

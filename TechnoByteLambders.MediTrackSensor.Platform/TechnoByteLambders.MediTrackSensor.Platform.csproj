@@ -33,6 +33,13 @@
             <DependentUpon>CommonMessages.cs</DependentUpon>
         </EmbeddedResource>
 
+        <EmbeddedResource Update="Shared\Resources\Errors\ErrorMessages.resx">
+            <DependentUpon>ErrorMessages.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Shared\Resources\Errors\ErrorMessages.es.resx">
+            <DependentUpon>ErrorMessages.cs</DependentUpon>
+        </EmbeddedResource>
+
         <EmbeddedResource Update="Iam\Resources\IamMessages.resx">
             <DependentUpon>IamMessages.cs</DependentUpon>
         </EmbeddedResource>
