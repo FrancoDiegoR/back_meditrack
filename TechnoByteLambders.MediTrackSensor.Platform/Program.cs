@@ -30,16 +30,13 @@ using TechnoByteLambders.MediTrackSensor.Platform.Shared.Domain.Repositories;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Persistence.EFC.Repositories;
-using TechnoByteLambders.MediTrackSensor.Platform.Shared.Infrastructure.Pipeline.Middleware.Extensions;
 using TechnoByteLambders.MediTrackSensor.Platform.Shared.Resources;
-using TechnoByteLambders.MediTrackSensor.Platform.Shared.Resources.Errors;
 using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Application.CommandServices;
 using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Application.Internal.CommandServices;
 using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Application.Internal.QueryServices;
 using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Application.QueryServices;
 using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Domain.Repositories;
 using TechnoByteLambders.MediTrackSensor.Platform.Subscriptions.Infrastructure.Persistence.EFC.Repositories;
-using ProblemDetailsFactory = TechnoByteLambders.MediTrackSensor.Platform.Shared.Interfaces.REST.ProblemDetails.ProblemDetailsFactory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,9 +74,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddSingleton<IStringLocalizer<ErrorMessages>, StringLocalizer<ErrorMessages>>();
 builder.Services.AddSingleton<IStringLocalizer<CommonMessages>, StringLocalizer<CommonMessages>>();
-
-// Custom ProblemDetailsFactory
-builder.Services.AddSingleton<ProblemDetailsFactory>();
 
 // Database
 builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
